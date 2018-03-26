@@ -159,6 +159,7 @@ class BasePage(object):
         logger.info("Current page title is %s" % self.driver.title)
         return self.driver.title
 
+    # 输入键盘回车键
     def keys_enter(self, selector):
         el = self.find_element(selector)
         el.send_keys(Keys.ENTER)
