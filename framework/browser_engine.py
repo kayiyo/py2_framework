@@ -20,14 +20,13 @@ class BrowserEngine(object):
     def open_browser(self, driver):
         config = ConfigParser.ConfigParser()
         # file_path = os.path.dirname(os.getcwd()) + '/config/config.ini'
-        file_path = os.path.dirname(os.path.abspath('.')) + '/config/config.ini'
+        file_path = os.path.dirname(os.path.abspath('.')) + '/config/config_order.ini'
         config.read(file_path)
 
         browser = config.get("browserType", "browserName")
         logger.info("You had select %s browser." % browser)
         url = config.get("testServer", "URL")
         logger.info("The test server url is: %s" % url)
-
 
         if browser == "Firefox":
             driver = webdriver.Firefox()
@@ -50,4 +49,3 @@ class BrowserEngine(object):
     def quit_browser(self):
         logger.info("Now, Close and quit the browser.")
         self.driver.quit()
-

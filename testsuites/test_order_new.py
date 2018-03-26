@@ -1,6 +1,8 @@
 # coding=utf-8
 import time
 import unittest
+import ConfigParser
+import os.path
 from framework.browser_engine import BrowserEngine
 from pageobjects.order_base import orderBase
 
@@ -29,11 +31,23 @@ class OrderNew(unittest.TestCase):
         这里一定要test开头，把测试逻辑代码封装到一个test开头的方法里。
         :return:
         """
+        config = ConfigParser.ConfigParser()
+        file_path = os.path.dirname(os.path.abspath('.')) + '/config/config_order.ini'
+        config.read(file_path)
+
+        user = config.get("orderNew", "user")
+        password = config.get("orderNew", "pw")
+
         orderbase = orderBase(self.driver)
-        orderbase.send_username('016417')
-        orderbase.send_password('123456')
+        orderbase.send_username(user)
+        orderbase.send_password(password)
         orderbase.login()
         time.sleep(2)
+        orderbase.click("xpath=>//*[@id='sider']/div/div/div[2]/ul/li[2]/a")
+        time.sleep(2)
+        orderbase.click("partial_link_text=>新建")
+        time.sleep(2)
+        orderbase.order_execute("orderNew")
         orderbase.logout()
         time.sleep(2)
         # homepage.type_search('selenium')  # 调用页面对象中的方法

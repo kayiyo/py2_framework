@@ -2,7 +2,10 @@
 import time
 from selenium.common.exceptions import NoSuchElementException
 import os.path
+import random
 from framework.logger import Logger
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')  # 如果不添加以上三行代码，xpath如果表达式包括中文，就会报错，python 2.x 默认
@@ -144,10 +147,71 @@ class BasePage(object):
         except NameError as e:
             logger.error("Failed to click the element with %s" % e)
 
-    # 或者网页标题
+    # 获取元素值
+    def get_value(self, selector):
+
+        el = self.find_element(selector)
+        value = el.get_attribute('value')
+        return value
+
+    # 获取网页标题
     def get_page_title(self):
         logger.info("Current page title is %s" % self.driver.title)
         return self.driver.title
+
+    def keys_enter(self, selector):
+        el = self.find_element(selector)
+        el.send_keys(Keys.ENTER)
+
+    # 选择下拉列表选项
+    def select(self, selector, count):
+
+        el = self.find_element(selector)
+        try:
+            el.click()
+            # logger.info("The element \' %s \' was clicked." % el.text)
+            for count in range(1, count):
+                el.send_keys(Keys.DOWN)
+            el.send_keys(Keys.ENTER)
+        except NameError as e:
+            logger.error("Failed to click the element with %s" % e)
+
+    # 随机选择下拉列表选项
+    def select_random(self, selector, count):
+
+        el = self.find_element(selector)
+        try:
+            el.click()
+            # logger.info("The element \' %s \' was clicked." % el.text)
+            for count in range(1, random.randint(2, count)):
+                el.send_keys(Keys.DOWN)
+            el.send_keys(Keys.ENTER)
+        except NameError as e:
+            logger.error("Failed to click the element with %s" % e)
+
+    # 选择列表菜单
+    def choose(self, search_button, search_value, search_bar, move, wait=2):
+
+        el = self.find_element(search_button)
+        try:
+            el.click()
+            # logger.info("The element \' %s \' was clicked." % el.text)
+            time.sleep(wait)
+            el = self.find_element(search_bar)
+            el.send_keys(search_value)
+            search = "partial_link_text=>搜"
+            self.click(search)
+            time.sleep(wait)
+            moveto = self.find_element(move)
+            ActionChains(self.driver).move_to_element_with_offset(moveto, 38, 38).perform()
+            ActionChains(self.driver).click().perform()
+            time.sleep(1)
+            sure = "partial_link_text=>确"
+            self.click(sure)
+            time.sleep(0.3)
+
+        except NameError as e:
+            logger.error("Failed to click the element with %s" % e)
 
     @staticmethod
     def sleep(seconds):
