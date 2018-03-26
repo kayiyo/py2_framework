@@ -142,8 +142,8 @@ class BasePage(object):
 
         el = self.find_element(selector)
         try:
+            logger.info("The element \' %s \' is clicking." % el.text)
             el.click()
-            logger.info("The element \' %s \' was clicked." % el.text)
         except NameError as e:
             logger.error("Failed to click the element with %s" % e)
 

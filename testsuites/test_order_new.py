@@ -51,8 +51,14 @@ class OrderNew(unittest.TestCase):
         orderbase.click("partial_link_text=>新建")
         time.sleep(2)
         orderbase.order_execute(db_table)
+        orderbase.click("partial_link_text=>提交立项")
+        time.sleep(5)
+        orderbase.click("partial_link_text=>确")
+        time.sleep(3)
+        orderbase.click("partial_link_text=>确")
+        time.sleep(3)
         orderbase.logout()
-        time.sleep(2)
+        # homepage = HomePage(self.driver)
         # homepage.type_search('selenium')  # 调用页面对象中的方法
         # homepage.send_submit_btn()     #调用页面对象类中的点击搜索按钮方法
         # time.sleep(2)
