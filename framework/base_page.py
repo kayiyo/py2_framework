@@ -1,4 +1,4 @@
-# coding=utf-8
+# _*_ coding: utf-8 _*_
 import time
 from selenium.common.exceptions import NoSuchElementException
 import os.path

@@ -1,14 +1,14 @@
-# coding=utf-8
+# _*_ coding: utf-8 _*_
 import time
 # import pymysql
 import MySQLdb
 import sys
+from framework.base_page import BasePage
 reload(sys)
 sys.setdefaultencoding('utf8')
-from framework.base_page import BasePage
 
 
-class orderBase(BasePage):
+class OrderBase(BasePage):
 
     input_username = "xpath=>//*[@id='username']"
     input_password = "xpath=>//*[@id='password']"

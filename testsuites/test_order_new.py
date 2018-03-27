@@ -1,10 +1,10 @@
-# coding=utf-8
+# _*_ coding: utf-8 _*_
 import time
 import unittest
 import ConfigParser
 import os.path
 from framework.browser_engine import BrowserEngine
-from pageobjects.order_base import orderBase
+from pageobjects.order_base import OrderBase
 
 
 class OrderNew(unittest.TestCase):
@@ -40,7 +40,7 @@ class OrderNew(unittest.TestCase):
         password = config.get(process, "pw")
         db_table = process
 
-        orderbase = orderBase(self.driver)
+        orderbase = OrderBase(self.driver)
         orderbase.send_username(user)
         orderbase.send_password(password)
         orderbase.login()
@@ -52,7 +52,7 @@ class OrderNew(unittest.TestCase):
         time.sleep(2)
         orderbase.order_execute(db_table)
         orderbase.click("partial_link_text=>提交立项")
-        time.sleep(5)
+        time.sleep(3)
         orderbase.click("partial_link_text=>确")
         time.sleep(3)
         orderbase.click("partial_link_text=>确")
