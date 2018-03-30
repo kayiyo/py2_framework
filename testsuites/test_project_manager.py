@@ -9,8 +9,8 @@ import sys
 sys.path.append('D:\\GitHub\\Python\\py2_framework\\')
 
 
-class OrderNew(unittest.TestCase):
-    """新建订单"""
+class ProjectManager(unittest.TestCase):
+    """管理项目"""
 
     @classmethod
     def setUpClass(cls):
@@ -29,8 +29,7 @@ class OrderNew(unittest.TestCase):
         """
         cls.driver.quit()
 
-    # @unittest.skip
-    def test_order_new(self):
+    def test_project_manager(self):
         """
         这里一定要test开头，把测试逻辑代码封装到一个test开头的方法里。
         :return:
@@ -39,7 +38,7 @@ class OrderNew(unittest.TestCase):
         file_path = os.path.dirname(os.path.abspath('.')) + '/config/config_order.ini'
         config.read(file_path)
 
-        process = 'orderNew'
+        process = 'projectManager'
         user = config.get(process, "user")
         password = config.get(process, "pw")
         db_table = process
@@ -50,21 +49,9 @@ class OrderNew(unittest.TestCase):
         orderbase.login()
         time.sleep(2)
         orderbase.get_windows_img()
-
         orderbase.order_execute(db_table)
-
         orderbase.get_windows_img()
         orderbase.logout()
-        # homepage = HomePage(self.driver)
-        # homepage.type_search('selenium')  # 调用页面对象中的方法
-        # homepage.send_submit_btn()     #调用页面对象类中的点击搜索按钮方法
-        # time.sleep(2)
-        # homepage.get_windows_img()  # 调用基类截图方法
-        # try:
-        #     assert 'selenium' in homepage.get_page_title()  # 调用页面对象继承基类中的获取页面标题方法
-        #     print ('Test Pass.')
-        # except Exception as e:
-        #     print ('Test Fail.', format(e))
 
 if __name__ == '__main__':
     unittest.main()

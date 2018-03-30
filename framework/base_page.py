@@ -50,6 +50,22 @@ class BasePage(object):
         except NameError as e:
             logger.error("Failed to quit the browser with %s" % e)
 
+    # 点击弹窗上确定按钮
+    def alert_accept(self):
+        alert = self.driver.switch_to_alert()
+        alert.accept()
+
+    # 点击弹窗的取消按钮
+    def alert_dismiss(self):
+        alert = self.driver.switch_to_alert()
+        alert.dismiss()
+
+    # 获取弹窗上的文本文字内容
+    def alert_get_text(self):
+        alert = self.driver.switch_to_alert()
+        alert_get_text = alert.getText()
+        return alert_get_text
+
     # 保存图片
     def get_windows_img(self):
         """
@@ -60,6 +76,7 @@ class BasePage(object):
         screen_name = file_path + rq + '.png'
         try:
             self.driver.get_screenshot_as_file(screen_name)
+            self.driver.get_screenshot_as_base64()
             logger.info("Had take screenshot and save to folder : /screenshots")
         except NameError as e:
             logger.error("Failed to take screenshot! %s" % e)
