@@ -7,6 +7,7 @@ import sys
 sys.path.append('D:\\GitHub\\Python\\py2_framework\\')
 from testsuites.test_order_new import OrderNew
 from testsuites.test_project_manager import ProjectManager
+from testsuites.test_project_execute import ProjectExecute
 
 
 # 设置报告文件保存路径
@@ -26,8 +27,10 @@ fp = file(HtmlFile, "wb")
 # 构建suite
 suite_path = os.path.dirname(os.path.abspath('.')) + '/testsuites/'
 suite = unittest.TestSuite()
+
 suite.addTest(OrderNew("test_order_new"))
 suite.addTest(ProjectManager("test_project_manager"))
+suite.addTest(ProjectExecute("test_project_execute"))
 
 if __name__ == '__main__':
 
