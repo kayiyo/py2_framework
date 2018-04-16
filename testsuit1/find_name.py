@@ -35,9 +35,10 @@ daily_path = dir + '\\' + today_time + '\\'
 config_path = dir + '\\config.ini'
 w_path = rq + '.log'
 
-w = open(w_path,'w')
+w = open(w_path, 'w')
 
-f = open(config_path)
+f = open(config_path, 'r')
+# namelist = f.readlines()
 namelist = []
 w.write(u"名单"),
 for line in f:
@@ -46,7 +47,10 @@ for line in f:
     w.write(' '),
     # print(type(line))
     namelist.append(line)
-w.write('[%d]' % (len(namelist)-1))
+len_namelist = len(namelist)-1
+if len_namelist < 0:
+    len_namelist = 0
+w.write('[%d]' % len_namelist)
 f.close()
 
 file_list = dir + '\\' + today_time + '\\'
@@ -59,8 +63,10 @@ for e in list:
     # all_symptom = re.sub(u'', '', e)
     # e = re.split(u'平台支持中心-平台技术部-|-日报-20180412.xlsx',e)
     e = re.sub(u"(?isu)平台支持中心-平台技术部-", "", e)
-    e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-]", "", e)
+    e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-\(\)]", "", e)
     e = re.sub(u"(?isu)日报", "", e)
+    e = re.sub(u"(?isu)副本", "", e)
+    e = re.sub(" ", "", e)
     last.append(e)
 w.write(u"\n\n最终提交的列表："),
 for last_name in last:
@@ -80,6 +86,9 @@ for m in namelist:
         nolast.append(m)
         w.write(m),
         w.write(' '),
-w.write('[%d]' % (len(nolast)-1))
+len_nolast = len(nolast)-1
+if len_nolast<0:
+    len_nolast = 1
+w.write('[%d]' % len_nolast)
 
 w.close()
