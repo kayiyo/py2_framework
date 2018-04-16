@@ -29,21 +29,24 @@ def GetFileList(dir, fileList):
 # print (namelist)
 rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
 today_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
-dir = os.path.dirname(os.path.abspath('.')) + '\\daily'
+dir = os.getcwd()
+# dir = 'D:\\daily'
 daily_path = dir + '\\' + today_time + '\\'
 config_path = dir + '\\config.ini'
-w_path = daily_path + rq + '.log'
+w_path = rq + '.log'
 
 w = open(w_path,'w')
 
 f = open(config_path)
 namelist = []
-w.write(u"名单列表："),
+w.write(u"名单"),
 for line in f:
-    w.write(line.strip()),
+    line = line.strip()
+    w.write(line),
     w.write(' '),
     # print(type(line))
-    namelist.append(line.strip())
+    namelist.append(line)
+w.write('[%d]' % (len(namelist)-1))
 f.close()
 
 file_list = dir + '\\' + today_time + '\\'
@@ -59,20 +62,24 @@ for e in list:
     e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-]", "", e)
     e = re.sub(u"(?isu)日报", "", e)
     last.append(e)
-w.write(u"\n\n最终提交的名单:")
-for lastname in last:
-    w.write(lastname),
+w.write(u"\n\n最终提交的列表："),
+for last_name in last:
+    w.write(last_name),
     w.write(' '),
     # print(type(lastname))
+w.write('[%d]' % len(last))
 
-w.write(u'\n\n未提交的名单：')
+w.write(u"\n\n未提交"),
+nolast = []
 for m in namelist:
     m = m.decode("utf-8")
     # print(type(i))
     if m in last:
         pass
     else:
+        nolast.append(m)
         w.write(m),
         w.write(' '),
+w.write('[%d]' % (len(nolast)-1))
 
 w.close()
