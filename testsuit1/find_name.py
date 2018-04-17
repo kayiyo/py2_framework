@@ -33,20 +33,24 @@ dir = os.getcwd()
 # dir = 'D:\\daily'
 daily_path = dir + '\\' + today_time + '\\'
 config_path = dir + '\\config.ini'
-w_path = rq + '.log'
+w_path = dir + '\\' + rq + '.log'
 
 w = open(w_path, 'w')
 
 f = open(config_path, 'r')
 # namelist = f.readlines()
 namelist = []
-w.write(u"名单"),
+w.write(u"名单的"),
 for line in f:
     line = line.strip()
-    w.write(line),
-    w.write(' '),
-    # print(type(line))
-    namelist.append(line)
+    line = re.sub(" ", "", line)
+    if line == '':
+        pass
+    else:
+        w.write(line),
+        w.write(' '),
+        namelist.append(line)
+    # print(line)
 len_namelist = len(namelist)-1
 if len_namelist < 0:
     len_namelist = 0
@@ -85,9 +89,9 @@ for e in list:
     e = re.sub(u"(?isu)日报\S*", "", e)
     e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-\(\)]", "", e)
     # 新的匹配
-
+    # print(e)
     last.append(e)
-w.write(u"\n\n最终提交的列表："),
+w.write(u"\n\n提交的列表："),
 for last_name in last:
     w.write(last_name),
     w.write(' '),
