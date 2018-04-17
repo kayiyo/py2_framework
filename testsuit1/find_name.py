@@ -64,18 +64,27 @@ for e in list:
     # e = re.split(u'平台支持中心-平台技术部-|-日报-20180412.xlsx',e)
 
     # 使用中
-    e = re.sub(u"(?isu)平台支持中心-平台技术部-", "", e)
-    e = re.sub(u"(?isu)平台支持中心-平台产品部-", "", e)
-    e = re.sub(u"(?isu)平台支持中心-平台运营部-", "", e)
-    e = re.sub(u"(?isu)平台支持中心", "", e)
-    e = re.sub(u"(?isu)平台技术部", "", e)
-    e = re.sub(u"(?isu)平台产品部", "", e)
-    e = re.sub(u"(?isu)平台运营部", "", e)
-    e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-\(\)]", "", e)
-    e = re.sub(u"(?isu)日报", "", e)
-    e = re.sub(u"(?isu)副本", "", e)
-    e = re.sub(" ", "", e)
+    # e = re.sub(u"(?isu)平台支持中心-平台技术部-", "", e)
+    # e = re.sub(u"(?isu)平台支持中心-平台产品部-", "", e)
+    # e = re.sub(u"(?isu)平台支持中心-平台运营部-", "", e)
+    # e = re.sub(u"(?isu)平台支持中心", "", e)
+    # e = re.sub(u"(?isu)平台技术部", "", e)
+    # e = re.sub(u"(?isu)平台产品部", "", e)
+    # e = re.sub(u"(?isu)平台运营部", "", e)
+    # e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-\(\)]", "", e)
+    # e = re.sub(u"(?isu)日报", "", e)
+    # e = re.sub(u"(?isu)副本", "", e)
+    # e = re.sub(" ", "", e)
     # 使用中
+
+    # 新的匹配
+    e = re.sub(" ", "", e)
+    e = re.sub(u"(?isu)\S*技术部", "", e)
+    e = re.sub(u"(?isu)\S*产品部", "", e)
+    e = re.sub(u"(?isu)\S*运营部", "", e)
+    e = re.sub(u"(?isu)日报\S*", "", e)
+    e = re.sub("[A-Za-z0-9\!\%\[\]\,\。\.\-\(\)]", "", e)
+    # 新的匹配
 
     last.append(e)
 w.write(u"\n\n最终提交的列表："),
